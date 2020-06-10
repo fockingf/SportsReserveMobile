@@ -13,7 +13,7 @@ import {
 } from './styles';
 import { Text } from '~/components/Button/styles';
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
     return (
         <Background>
             <Container>
@@ -38,8 +38,8 @@ export default function SignIn() {
                     />
                     <SubmitButton onPress={() => {}}>Acessar</SubmitButton>
                 </Form>
-                <SignLink onPress={() => {}}>
-                    <SignLinkText>Cadastre-se</SignLinkText>
+                <SignLink onPress={() => navigation.navigate('SignUp')}>
+                    <SignLinkText>Não tenho uma conta</SignLinkText>
                 </SignLink>
             </Container>
         </Background>
