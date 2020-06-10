@@ -20,6 +20,7 @@ export default function SignIn() {
                 <Image source={logo} />
                 <SportsReserve>
                     Sports
+                    {/* eslint-disable-next-line react-native/no-inline-styles */}
                     <Text style={{ fontSize: 30, color: '#fff' }}>Reserve</Text>
                 </SportsReserve>
                 <Form>
