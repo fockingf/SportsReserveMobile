@@ -1,19 +1,46 @@
 import React from 'react';
-import { Text } from 'react-native';
-import Input from '~/components/Input';
-import Button from '~/components/Button';
+import { Image } from 'react-native';
+import logo from '~/assets/logoUnivaliBranco.png';
 import Background from '~/components/Background';
+import {
+    Container,
+    Form,
+    FormInput,
+    SubmitButton,
+    SignLink,
+    SignLinkText,
+    SportsReserve,
+} from './styles';
+import { Text } from '~/components/Button/styles';
 
 export default function SignIn() {
     return (
         <Background>
-            <Text>SignIn</Text>
-            <Input
-                icon="call"
-                placeholder="digite seu nome"
-                style={{ marginTop: 30 }}
-            />
-            <Button>Logar</Button>
+            <Container>
+                <Image source={logo} />
+                <SportsReserve>
+                    Sports
+                    <Text style={{ fontSize: 30, color: '#fff' }}>Reserve</Text>
+                </SportsReserve>
+                <Form>
+                    <FormInput
+                        icon="mail-outline"
+                        keyboardType="email-address"
+                        autoCorret={false}
+                        autoCapitalize="none"
+                        placeholder="Digite seu e-mail"
+                    />
+                    <FormInput
+                        icon="lock-outline"
+                        secureTextEntry
+                        placeholder="Digite sua senha"
+                    />
+                    <SubmitButton onPress={() => {}}>Acessar</SubmitButton>
+                </Form>
+                <SignLink onPress={() => {}}>
+                    <SignLinkText>Cadastre-se</SignLinkText>
+                </SignLink>
+            </Container>
         </Background>
     );
 }
