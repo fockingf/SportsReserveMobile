@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
+
 import Background from '../../components/Background';
 import { Container, Title, List } from './styles';
 import Agendamento from '~/components/Agendamentos';
 import api from '~/services/api';
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
     const [agendamentos, setAgendamentos] = useState([]);
+
+    async function loadAgendamentos() {
+        const response = await api.get('agendamentos');
+        setAgendamentos(response.data);
+    }
+
     useEffect(() => {
-        async function loadAgendamentos() {
-            const response = await api.get('agendamentos');
-            setAgendamentos(response.data);
+        if (isFocused) {
+            loadAgendamentos();
         }
-        loadAgendamentos();
-    }, []);
+    }, [isFocused]);
 
     async function handleCancel(id) {
         const response = await api.delete(`agendamentos/${id}`);
@@ -32,11 +38,16 @@ export default function Dashboard() {
     return (
         <Background>
             <Container>
-                <Title>Agendamentos</Title>
+                <Title>Minhas Reservas</Title>
                 <List
                     data={agendamentos}
                     keyExtrator={item => String(item.id)}
-                    renderItem={({ item }) => <Agendamento onCancel={() => handleCancel(item.id)} data={item} />}
+                    renderItem={({ item }) => (
+                        <Agendamento
+                            onCancel={() => handleCancel(item.id)}
+                            data={item}
+                        />
+                    )}
                 />
             </Container>
         </Background>
@@ -44,8 +55,10 @@ export default function Dashboard() {
 }
 
 Dashboard.navigationOptions = {
-    tabBarLabel: 'Agendamentos',
+    tabBarLabel: 'Reservas',
     tabBarIcon: ({ tintColor }) => (
         <Icon name="event" size={20} color={tintColor} />
     ),
 };
+
+export default withNavigationFocus(Dashboard);
