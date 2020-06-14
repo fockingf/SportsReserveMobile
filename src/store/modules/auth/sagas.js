@@ -1,7 +1,6 @@
 import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import api from '~/services/api';
-// import history from '~/services/history';
 import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
@@ -20,8 +19,6 @@ export function* signIn({ payload }) {
         }
         api.defaults.headers.Authorization = `Baerer ${token}`;
         yield put(signInSuccess(token, user));
-
-        //     history.push('/dashboard');
     } catch (e) {
         Alert.alert('Falha na autenticação', 'Verifique os dados digitados');
         yield put(signFailure());
@@ -36,9 +33,9 @@ export function* signUp({ payload }) {
             email,
             password,
         });
-        //history.push('/');
+        Alert.alert('Cadastro de Usuário', 'Cadastradado com sucesso!');
     } catch (e) {
-        Alert.alert('Falha na cadastro', 'Verifique os dados digitados');
+        Alert.alert('Falha no cadastro', 'Verifique os dados digitados');
         yield put(signFailure());
     }
 }
@@ -53,9 +50,7 @@ export function setToken({ payload }) {
     }
 }
 
-export function signOut() {
-    //history.push('/');
-}
+export function signOut() {}
 
 export default all([
     takeLatest('persist/REHYDRATE', setToken),

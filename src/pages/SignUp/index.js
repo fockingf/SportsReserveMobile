@@ -17,7 +17,7 @@ import {
 import { Text } from '~/components/Button/styles';
 
 export default function SignUp({ navigation }) {
-    const dispach = useDispatch();
+    const dispatch = useDispatch();
     const emailRef = useRef();
     const passwordRef = useRef();
     const [name, setName] = useState('');
@@ -26,7 +26,7 @@ export default function SignUp({ navigation }) {
     const loading = useSelector(state => state.auth.loading);
 
     function handleSubmit() {
-        dispach(signUpRequest(name, email, password));
+        dispatch(signUpRequest(name, email, password));
     }
     return (
         <Background>
